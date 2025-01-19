@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 110vh;;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-position: center;
+            background-size: auto;
+            background-repeat:space;
+            background-image: url(img/14731307_rm218-bb-07.jpg);
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Make the nav items wrap on smaller screens */
+        }
+        nav ul li {
+            display: inline;
+            margin: 0.5em 0; /* Add some margin for better spacing */
+        }
+        nav ul li a {
+            text-decoration: none;
+            font-weight: bold;
+            color: rgb(248, 247, 247);
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            position:relative;
+
+            width: 100%;
+            bottom: 0;
+        }
+        main {
+            flex: 1;
+            padding: 2em;
+            color: azure;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            width: 14.28%;
+            font-size: xx-small;
+        }
+        th {
+            background-color: #fc1616bd;
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: ROW; /* Stack nav items vertically on small screens */
+            }
+            th, td {
+                font-size: 6PX;
+                font-weight: bolder; /* Adjust font size for smaller screens */
+            }
+            main {
+                padding: 1em; /* Reduce padding for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>AIML 2027</h1>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="calendar.html">Attendance</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Time Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day/Time</th>
+                    <th>09:10 - 10:00</th>
+                    <th>10:00 - 10:50</th>
+                    <th>10:50 - 11:40</th>
+                    <th>11:40 - 12:30</th>
+                    <th>12:30 - 01:20</th>
+                    <th>01:20 - 02:10</th>
+                    <th>02:10 - 03:00</th>
+                    <th>03:00 - 03:50</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monday</td>
+                    <td>DL&CO</td>
+                    <td colspan="3">FULL STACK DEVELOPMENT</td>
+                    <td rowspan="6" class="vertical-text">LUNCH BREAK</td>
+                    <td>OT</td>
+                    <td>DL&CO</td>
+                    <td>P&S</td>
+                </tr>
+               
+                <tr>
+                    <td>Tuesday</td>
+                    <td>OT</td>
+                    <td>P&S</td>
+                    <td>DL&CO</td>
+                    <td>DTI</td>
+                    <td>ML</td>
+                    <td>DBMS</td>
+                    <td>SPORTS</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>ML</td>
+                    <td>DBMS</td>
+                    <td>P&S</td>
+                    <td>OT</td>
+                    <td colspan="3">ML LABS</td>
+                    
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>DBMS</td>
+                    <td>DL&CO</td>
+                    <td>ML</td>
+                    <td>NPTEL</td>
+                    <td>DTI</td>
+                    <td>OT</td>
+                    <td>P&S</td>
+              
+                </tr>
+                <tr>
+                    <td>Friday</td>
+               
+                    <td>DTI</td>
+                    <td>ML</td>
+                    <td>DBMS</td>
+                    <td>LIB</td>
+                    <td colspan="3">DBMS LAB</td>
+                    
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>P&S</td>
+                    <td>ML</td>
+                  
+                    <td>DTI</td>
+                    <td>OT</td>
+                    <td>DL&CO</td>
+                    <td>DBMS</td>
+                    <td>MENTOR</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        &copy; 2027 AIML
+    </footer>
+</body>
+</html>

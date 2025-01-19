@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.5em;
+            margin: 0.5em 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 0.5em;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <input type="text" id="login-roll-number" placeholder="Roll Number" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <script>
+        const users = {
+            "23HM1A3301": "password1",
+            "23HM1A3302": "password2",
+            "23HM1A3303": "password3",
+            "23HM1A3304": "password4",
+            "23HM1A3305": "password5",
+            "23HM1A3306": "password6",
+            "23HM1A3307": "password7",
+            "23HM1A3308": "password8",
+            "23HM1A3309": "password9",
+            "23HM1A3310": "password10",
+            "23HM1A3311": "password11",
+            "23HM1A3312": "password12",
+            "23HM1A3313": "password13",
+            "23HM1A3314": "password14",
+            "23HM1A3315": "password15",
+            "23HM1A3316": "password16",
+            "23HM1A3317": "password17",
+            "23HM1A3318": "password18",
+            "23HM1A3319": "password19",
+            "23HM1A3320": "password20",
+            "23HM1A3321": "password21",
+            "23HM1A3322": "password22",
+            "23HM1A3323": "password23",
+            "23HM1A3324": "password24",
+            "23HM1A3325": "password25",
+            "23HM1A3326": "password26",
+            "23HM1A3327": "password27",
+            "23HM1A3328": "password28",
+            "23HM1A3329": "password29",
+            "23HM1A3330": "password30",
+            "23HM1A3331": "password31",
+            "23HM1A3332": "password32",
+            "23HM1A3333": "password33",
+            "23HM1A3334": "password34",
+            "23HM1A3335": "password35",
+            "23HM1A3336": "password36",
+            "23HM1A3337": "password37",
+            "23HM1A3338": "password38",
+            "23HM1A3339": "password39",
+            "23HM1A3340": "password40",
+            "23HM1A3341": "password41",
+            "23HM1A3342": "password42",
+            "23HM1A3343": "password43",
+            "23HM1A3344": "password44",
+            "23HM1A3345": "password45",
+            "23HM1A3346": "password46",
+            "23HM1A3347": "password47",
+            "23HM1A3348": "password48",
+            "23HM1A3349": "password49",
+            "23HM1A3350": "password50",
+            "23HM1A3351": "password51",
+            "23HM1A3352": "password52",
+            "23HM1A3353": "password53",
+            "23HM1A3354": "password54",
+            "24HM5A3301": "password55",
+            "24HM5A3302": "password56",
+            "24HM5A3303": "password57",
+            "24HM5A3304": "password58",
+            "24HM5A3305": "password59",
+            "24HM5A3306": "password60",
+            "24HM5A3307": "password61"
+        };
+
+        function login() {
+            const rollNumber = document.getElementById('login-roll-number').value.toUpperCase();
+            const password = document.getElementById('login-password').value;
+
+            if (users[rollNumber] && users[rollNumber] === password) {
+                alert('Login successful');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid roll number or password');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            margin-top: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .summary {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="attendance-date"></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Clear</th>
+                    <th>Holiday</th>
+                    <th>Absent</th>
+                    <th>Present</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-table">
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+        <div class="summary">
+            <p>Total Periods: <span id="total-periods">0</span></p>
+            <p>Present Periods: <span id="present-periods">0</span></p>
+            <p>Absent Periods: <span id="absent-periods">0</span></p>
+            <p>Attendance Percentage: <span id="attendance-percentage">0%</span></p>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const date = urlParams.get('date');
+        const day = urlParams.get('day');
+        document.getElementById('attendance-date').textContent = `${day}, ${date}`;
+
+        const timetable = {
+            "Monday": ["DL&CO", "FULL STACK DEVELOPMENT", "FULL STACK DEVELOPMENT", "FULL STACK DEVELOPMENT", "LUNCH BREAK", "OT", "DL&CO", "P&S"],
+            "Tuesday": ["DBMS", "DL&CO", "ML", "NPTEL", "DTI", "OT", "P&S"],
+            "Wednesday": ["DBMS", "DL&CO", "ML", "NPTEL", "DTI", "OT", "P&S"],
+            "Thursday": ["DBMS", "DL&CO", "ML", "NPTEL", "DTI", "OT", "P&S"],
+            "Friday": ["DTI", "ML", "DBMS", "LIB", "DBMS LAB", "DBMS LAB", "DBMS LAB"],
+            "Saturday": ["P&S", "ML", "DTI", "OT", "DL&CO", "DBMS", "MENTOR"]
+        };
+
+        const periods = [
+            "09:10 - 10:00",
+            "10:00 - 10:50",
+            "10:50 - 11:40",
+            "11:40 - 12:30",
+            "12:30 - 01:20",
+            "01:20 - 02:10",
+            "02:10 - 03:00",
+            "03:00 - 03:50"
+        ];
+
+        const attendanceTable = document.getElementById('attendance-table');
+        let totalPeriods = periods.length;
+        let presentPeriods = 0;
+        let absentPeriods = 0;
+
+        const dayTimetable = timetable[day] || [];
+
+        dayTimetable.forEach((subject, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${periods[index]}</td>
+                <td><input type="radio" name="period${index}" value="clear" onclick="updateAttendance(${index}, 'clear')"></td>
+                <td><input type="radio" name="period${index}" value="holiday" onclick="updateAttendance(${index}, 'holiday')"></td>
+                <td><input type="radio" name="period${index}" value="absent" onclick="updateAttendance(${index}, 'absent')"></td>
+                <td><input type="radio" name="period${index}" value="present" onclick="updateAttendance(${index}, 'present')"></td>
+            `;
+            attendanceTable.appendChild(tr);
+        });
+
+        function updateAttendance(index, status) {
+            const selectedRadio = document.querySelector(`input[name="period${index}"][value="${status}"]`);
+
+            if (selectedRadio.checked) {
+                // If the radio button is already checked, clear it
+                selectedRadio.checked = false;
+                status = 'clear';
+            } else {
+                // Clear all radio buttons for this period
+                const periodRow = document.getElementsByName(`period${index}`);
+                periodRow.forEach(radio => radio.checked = false);
+                // Check the selected radio button
+                selectedRadio.checked = true;
+            }
+
+            // Reset the period status
+            totalPeriods = periods.length;
+            presentPeriods = 0;
+            absentPeriods = 0;
+
+            // Recalculate the totals based on the current selections
+            periods.forEach((_, i) => {
+                const selected = document.querySelector(`input[name="period${i}"]:checked`);
+                if (selected) {
+                    if (selected.value === 'holiday') {
+                        totalPeriods--;
+                    } else if (selected.value === 'absent') {
+                        absentPeriods++;
+                    } else if (selected.value === 'present') {
+                        presentPeriods++;
+                    }
+                }
+            });
+
+            document.getElementById('total-periods').textContent = totalPeriods;
+            document.getElementById('present-periods').textContent = presentPeriods;
+            document.getElementById('absent-periods').textContent = absentPeriods;
+            document.getElementById('attendance-percentage').textContent = `${((presentPeriods / totalPeriods) * 100).toFixed(2)}%`;
+        }
+
+        // Initialize the summary counts
+        document.getElementById('total-periods').textContent = totalPeriods;
+    </script>
+</body>
+</html>

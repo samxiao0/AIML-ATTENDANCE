@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            margin-top: 2em;
+        }
+        .calendar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .calendar-header button {
+            padding: 0.5em;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .calendar-header button:hover {
+            background-color: #555;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1em;
+            margin-top: 1em;
+        }
+        .calendar-grid div {
+            padding: 1em;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+        .calendar-grid div:hover {
+            background-color: #f0f0f0;
+        }
+        .calendar-grid .day-header {
+            background-color: #333;
+            color: white;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calendar</h2>
+        <div class="calendar">
+            <div class="calendar-header">
+                <button onclick="changeMonth(-1)">Previous</button>
+                <h3 id="calendar-month-year"></h3>
+                <button onclick="changeMonth(1)">Next</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        const calendarGrid = document.getElementById('calendar-grid');
+        const calendarMonthYear = document.getElementById('calendar-month-year');
+        let currentMonth = 11; // December
+        let currentYear = 2024;
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            if (currentYear < 2024 || (currentYear === 2024 && currentMonth < 11)) {
+                currentMonth = 11;
+                currentYear = 2024;
+            }
+            if (currentYear > 2025 || (currentYear === 2025 && currentMonth > 4)) {
+                currentMonth = 4;
+                currentYear = 2025;
+            }
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            calendarGrid.innerHTML = '';
+            calendarMonthYear.textContent = `${new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} ${currentYear}`;
+
+            // Add day headers
+            daysOfWeek.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.textContent = day;
+                dayHeader.classList.add('day-header');
+                calendarGrid.appendChild(dayHeader);
+            });
+
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            // Add day cells
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.textContent = day;
+                dayCell.onclick = () => openAttendancePage(day, currentMonth, currentYear);
+                calendarGrid.appendChild(dayCell);
+            }
+        }
+
+        function openAttendancePage(day, month, year) {
+            const date = new Date(year, month, day);
+            const dayName = date.toLocaleString('default', { weekday: 'long' });
+            window.location.href = `exss.html?date=${year}-${month + 1}-${day}&day=${dayName}`;
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>
